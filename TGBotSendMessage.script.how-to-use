@@ -1,0 +1,3 @@
+:local MessageText "Text update";
+:local SendTelegramMessage [:parse [/system script  get TGBotSendMessage source]]; 
+$SendTelegramMessage MessageText=$MessageText;
