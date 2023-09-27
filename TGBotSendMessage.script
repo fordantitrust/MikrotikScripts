@@ -1,0 +1,24 @@
+:local BotToken "xxxxxxxxxxxx:yyyyyyyyyyyyyyyyyyyyyyyyyy";
+:local ChatID "0000000000";
+
+:local ParseMode "html";
+:local DisableWebPagePreview True;
+:local SendText $MessageText;
+
+#local variable deviceName to get Mikrotik Identity
+:local deviceName [/system identity get name]
+
+#local variable deviceDate to get Mikrotik Date
+:local deviceDate [/system clock get date]
+
+#local variable deviceDate to get Mikrotik Time
+:local deviceTime [/system clock get time]
+
+#local variable textSent to save what message you want to send to Telegram Bot
+:local textSent "Device ID : <b>$deviceName</b>%0A$deviceDate $deviceTime : $SendText"
+
+:local tgUrl "https://api.telegram.org/bot$BotToken/sendMessage?chat_id=$ChatID&text=$textSent&parse_mode=$ParseMode&disable_web_page_preview=$DisableWebPagePreview";
+
+/tool fetch http-method=get url=$tgUrl keep-result=no;
+
+:log info "Send Telegram Message: $MessageText";
